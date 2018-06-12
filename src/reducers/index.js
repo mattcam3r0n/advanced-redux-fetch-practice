@@ -4,6 +4,9 @@ function contacts(state = [], action) {
   if (action.type === "CONTACTS_LOADED") {
     return action.value;
   }
+  if (action.type === "CONTACT_CREATED") {
+    return [...state, action.value];
+  }
   return state;
 }
 

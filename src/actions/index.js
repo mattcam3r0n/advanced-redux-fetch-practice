@@ -20,6 +20,31 @@ export function contactsLoaded(contacts) {
   };
 }
 
+export function createContact(contact) {
+  return function (dispatch) {
+    fetch("/contacts", {
+      method: "POST",
+      body: JSON.stringify(contact),
+      headers: {
+        Accept: "application/json"
+      }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((newContact) => {
+      dispatch(contactCreated(Object.assign(newContact, contact)));
+    });
+  };
+}
+
+export function contactCreated(contact) {
+  return {
+    type: "CONTACT_CREATED",
+    value: contact
+  };
+}
+
 export function loadComments() {
   return function (dispatch) {
     dispatch({
