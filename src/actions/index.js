@@ -67,6 +67,31 @@ export function commentsLoaded(comments) {
   };
 }
 
+export function createComment(comment) {
+  return function (dispatch) {
+    fetch("/comments", {
+      method: "POST",
+      body: JSON.stringify(comment),
+      headers: {
+        Accept: "application/json"
+      }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((newComment) => {
+      dispatch(commentCreated(Object.assign(newComment, comment)));
+    });
+  };
+}
+
+export function commentCreated(comment) {
+  return {
+    type: "COMMENT_CREATED",
+    value: comment
+  };
+}
+
 export function loadVehicles() {
   return function (dispatch) {
     dispatch({
@@ -89,6 +114,31 @@ export function vehiclesLoaded(vehicles) {
   };
 }
 
+export function createVehicle(vehicle) {
+  return function (dispatch) {
+    fetch("/vehicles", {
+      method: "POST",
+      body: JSON.stringify(vehicle),
+      headers: {
+        Accept: "application/json"
+      }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((newVehicle) => {
+      dispatch(vehicleCreated(Object.assign(newVehicle, vehicle)));
+    });
+  };
+}
+
+export function vehicleCreated(vehicle) {
+  return {
+    type: "VEHICLE_CREATED",
+    value: vehicle
+  };
+}
+
 export function loadProducts() {
   return function (dispatch) {
     dispatch({
@@ -108,5 +158,30 @@ export function productsLoaded(products) {
   return {
     type: "PRODUCTS_LOADED",
     value: products,
+  };
+}
+
+export function createProduct(product) {
+  return function (dispatch) {
+    fetch("/products", {
+      method: "POST",
+      body: JSON.stringify(product),
+      headers: {
+        Accept: "application/json"
+      }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((newProduct) => {
+      dispatch(productCreated(Object.assign(newProduct, product)));
+    });
+  };
+}
+
+export function productCreated(product) {
+  return {
+    type: "PRODUCT_CREATED",
+    value: product
   };
 }
