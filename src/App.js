@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import "./App.css";
 import ContactsContainer from "./containers/ContactsContainer";
 import ProductsContainer from "./containers/ProductsContainer";
@@ -8,15 +9,18 @@ import CreateThingsContainer from "./containers/CreateThingsContainer";
 class App extends Component {
   constructor() {
     super();
-    this.state = {users: []};
+    this.state = { users: [] };
   }
   componentDidMount() {
-
+    this.props.loadComments();
+    this.props.loadContacts();
+    this.props.loadVehicles();
+    this.props.loadProducts();
   }
   render() {
     return (
       <div>
-        <div style={{float: "left", width: "49%"}}>
+        <div style={{ float: "left", width: "49%" }}>
           <h1>Contacts</h1>
           <ContactsContainer />
           <h1>Products</h1>
@@ -26,13 +30,17 @@ class App extends Component {
           <h1>Comments </h1>
           <CommentsContainer />
         </div>
-        <div style={{float: "left", width: "49%"}}>
+        <div style={{ float: "left", width: "49%" }}>
           <CreateThingsContainer />
         </div>
       </div>
     );
   }
 }
-export default (App);
-
-
+App.propTypes = {
+  loadComments: PropTypes.func.isRequired,
+  loadContacts: PropTypes.func.isRequired,
+  loadVehicles: PropTypes.func.isRequired,
+  loadProducts: PropTypes.func.isRequired,
+};
+export default App;
